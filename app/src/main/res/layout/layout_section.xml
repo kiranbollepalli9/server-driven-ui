@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:orientation="horizontal">
+
     <!-- We must set an inflatedId so this view can have its state saved (eg scroll position) -->
     <ViewStub
         android:layout_width="match_parent"

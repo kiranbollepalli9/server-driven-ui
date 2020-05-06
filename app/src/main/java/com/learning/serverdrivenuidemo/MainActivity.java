@@ -9,10 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.airbnb.epoxy.EpoxyRecyclerView;
 import com.learning.data.APIService;
 import com.learning.data.HomeScreenResponse;
-import com.learning.epoxydemo.data.Data;
-import com.learning.epoxydemo.data.SampleDataSource;
 import com.learning.epoxydemo.epoxy.HomeController;
-import com.learning.epoxydemo.epoxy.VideoItemsController;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,33 +19,22 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "SERVER-DRIVEN-UI";
 
     @BindView(R.id.videos_recylerView)
     EpoxyRecyclerView recyclerView;
+
+    HomeController controller;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-       // setupEpoxyUI();
-        //setupHomeUI();
+         controller = new HomeController();
+        recyclerView.setAdapter(controller.getAdapter());
+        recyclerView.setHasFixedSize(true);
         fetchData();
-    }
-
-    private  void setupHomeUI(){
-        HomeController controller = new HomeController();
-        recyclerView.setAdapter(controller.getAdapter());
-        recyclerView.setHasFixedSize(true);
-        controller.setData(Data.INSTANCE.getHomeResponse());
-    }
-
-    private  void setupEpoxyUI(){
-        VideoItemsController controller = new VideoItemsController();
-        recyclerView.setAdapter(controller.getAdapter());
-        recyclerView.setHasFixedSize(true);
-        controller.setData(SampleDataSource.fetchVideoItems(), SampleDataSource.fetchBannerVideo());
     }
 
     private void fetchData(){
@@ -59,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
                 Log.i(TAG, "fetch data issuccess " + response.isSuccessful());
                 HomeScreenResponse homeScreenResponse = response.body();
                 if(homeScreenResponse!=null) {
-                    homeScreenResponse.getData();
+                    Log.i(TAG, "fetch data data " + homeScreenResponse.getData().size());
+                    controller.setData(homeScreenResponse.getData());
                 }
 
             }

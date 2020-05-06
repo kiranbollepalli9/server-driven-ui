@@ -14,8 +14,8 @@ import com.learning.serverdrivenuidemo.R;
 
 import butterknife.BindView;
 
-@EpoxyModelClass(layout = R.layout.layout_video_item)
-public abstract class VideoItemModel  extends EpoxyModelWithHolder<VideoItemModel.Holder> {
+@EpoxyModelClass(layout = R.layout.layout_card)
+public abstract class CardModel extends EpoxyModelWithHolder<CardModel.Holder> {
 
     private static final String TAG = "VideoItemModel";
     @EpoxyAttribute

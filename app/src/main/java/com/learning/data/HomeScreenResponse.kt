@@ -4,7 +4,6 @@ import com.google.gson.annotations.SerializedName
 
 data class HomeScreenResponse(val data: List<Item>) {
     data class Item (
-        val id : String,
         val viewType: ItemViewType,
         val header: Header?,
         val data: List<SubItem>
@@ -14,6 +13,7 @@ data class HomeScreenResponse(val data: List<Item>) {
             val hasMore: Boolean
         )
         data class SubItem(
+            val id : String,
             val viewType: SubItemViewType,
             val imageUrl: String,
             val title: String?,
